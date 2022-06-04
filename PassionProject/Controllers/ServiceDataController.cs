@@ -16,7 +16,16 @@ namespace PassionProject.Controllers
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
-        // GET: api/ServiceData/ListServices
+        /// <summary>
+        /// Returns all the services in the system
+        /// </summary>
+        /// <returns>
+        /// HEADER: 200 (OK)
+        /// CONTENT: all services in the database
+        /// </returns>
+        /// <example>
+        /// GET: api/ServiceData/ListServices
+        /// </example>
         [HttpGet]
         public IEnumerable<ServiceDto> ListServices()
         {
@@ -34,7 +43,19 @@ namespace PassionProject.Controllers
             return serviceDtos;
         }
 
-        // GET: api/ServiceData/FindService/5
+        /// <summary>
+        /// Returns a service based on service id
+        /// </summary>
+        /// <param name="id">Service Primary Key</param>
+        /// <returns>
+        /// HEADER: 200 (OK)
+        /// CONTENT: A service in the system matching up to the service id primary key
+        /// or
+        /// HEADER: 404 (NOT FOUND)
+        /// </returns>
+        /// <example>
+        /// GET: api/ServiceData/FindService/5
+        /// </example>
         [ResponseType(typeof(Service))]
         [HttpGet]
         public IHttpActionResult FindService(int id)
@@ -56,7 +77,17 @@ namespace PassionProject.Controllers
             return Ok(serviceDto);
         }
 
-        // GET: api/ServiceData/ServicesAssignedToEmployee/2
+        /// <summary>
+        /// Gets service and related employees details based on employeeid
+        /// </summary>
+        /// <param name="id">Employee primary key</param>
+        /// <returns>
+        /// HEADER: 200 (OK)
+        /// CONTENT: all services in the database, including their associated employees that match to a particular employee id
+        /// </returns>
+        /// <example>
+        /// GET: api/ServiceData/ServicesAssignedToEmployee/2
+        /// </example>
         [HttpGet]
         public IHttpActionResult ServicesAssignedToEmployee(int id)
         {
@@ -73,8 +104,17 @@ namespace PassionProject.Controllers
             return Ok(serviceDtos);
         }
 
-
-        // GET: api/ServiceData/ServicesNotAssignedToEmployee/2
+        /// <summary>
+        /// Returns list of services not assigned to an employee
+        /// </summary>
+        /// <param name="id">Employee primary key</param>
+        /// <returns>
+        /// HEADER: 200 (OK)
+        /// CONTENT: all Services in the database not assigned to an employee
+        /// </returns>
+        /// <example>
+        /// GET: api/ServiceData/ServicesNotAssignedToEmployee/2
+        /// </example>
         [HttpGet]
         public IHttpActionResult ServicesNotAssignedToEmployee(int id)
         {
@@ -91,7 +131,22 @@ namespace PassionProject.Controllers
             return Ok(serviceDtos);
         }
 
-        // PUT: api/ServiceData/UpdateService/5
+        /// <summary>
+        /// Updates a particular Service in the system with POST Data input
+        /// </summary>
+        /// <param name="id">Represents the Service ID primary key</param>
+        /// <param name="service">JSON FORM DATA of an Service</param>
+        /// <returns>
+        /// HEADER: 204 (Success, No Content Response)
+        /// or
+        /// HEADER: 400 (Bad Request)
+        /// or
+        /// HEADER: 404 (Not Found)
+        /// </returns>
+        /// <example>
+        /// PUT: api/ServiceData/UpdateService/5
+        /// FORM DATA: Service JSON Object
+        /// </example>
         [ResponseType(typeof(void))]
         [HttpPost]
         public IHttpActionResult UpdateService(int id, Service service)
@@ -128,7 +183,21 @@ namespace PassionProject.Controllers
             return StatusCode(HttpStatusCode.NoContent);
         }
 
-        // POST: api/ServiceData/AddService
+
+        /// <summary>
+        /// Adds a Service to the system
+        /// </summary>
+        /// <param name="service">JSON FORM DATA of an Service</param>
+        /// <returns>
+        /// HEADER: 201 (Created)
+        /// CONTENT: Service ID, Service Data
+        /// or
+        /// HEADER: 400 (Bad Request)
+        /// </returns>
+        /// <example>
+        /// POST: api/ServiceData/AddService
+        /// FORM DATA: Service JSON Object
+        /// </example>
         [ResponseType(typeof(Service))]
         [HttpPost]
         public IHttpActionResult AddService(Service service)
@@ -144,7 +213,20 @@ namespace PassionProject.Controllers
             return CreatedAtRoute("DefaultApi", new { id = service.ServiceId }, service);
         }
 
-        // POST: api/ServiceData/DeleteService/5
+
+        /// <summary>
+        /// Deletes a Service from the system by it's ID.
+        /// </summary>
+        /// <param name="id">The primary key of the Service</param>
+        /// <returns>
+        /// HEADER: 200 (OK)
+        /// or
+        /// HEADER: 404 (NOT FOUND)
+        /// </returns>
+        /// <example>
+        /// POST: api/ServiceData/DeleteService/5
+        /// FORM DATA: (empty)
+        /// </example>
         [ResponseType(typeof(Service))]
         [HttpPost]
         public IHttpActionResult DeleteService(int id)

@@ -16,9 +16,18 @@ namespace PassionProject.Controllers
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
-        // GET: api/EmployeeData/ListEmployees
+        /// <summary>
+        /// Returns list of all employees in the system
+        /// </summary>
+        /// <returns>
+        /// HEADER: 200 (OK)
+        /// CONTENT: all employees in the database
+        /// </returns>
+        /// <example>
+        /// GET: api/EmployeeData/ListEmployees
+        /// </example>
         [HttpGet]
-        public IEnumerable<EmployeeDto> ListEmployees()
+        public IHttpActionResult ListEmployees()
         {
             List<Employee> employees = db.Employees.ToList();
             List<EmployeeDto> employeeDtos = new List<EmployeeDto>();
@@ -30,9 +39,20 @@ namespace PassionProject.Controllers
                 DOJ = a.DOJ,
                 Bio = a.Bio
             }));
-            return employeeDtos;
+            return Ok(employeeDtos);
         }
 
+
+        /// <summary>
+        /// Returns Employee details based on id
+        /// </summary>
+        /// <param name="id">Employee primary key</param>
+        /// <returns>
+        /// HEADER: 200 (OK)
+        /// CONTENT: An employee in the system matching up to the employee ID primary key
+        /// or
+        /// HEADER: 404 (NOT FOUND)
+        /// </returns>
         // GET: api/EmployeeData/FindEmployee/5
         [ResponseType(typeof(Employee))]
         [HttpGet]
@@ -57,6 +77,15 @@ namespace PassionProject.Controllers
             return Ok(employee);
         }
 
+
+        /// <summary>
+        /// Gathers information about all Employees related to a particular ServiceId
+        /// </summary>
+        /// <param name="id">Service primary key</param>
+        /// <returns>
+        /// HEADER: 200 (OK)
+        /// CONTENT: all employees in the database, including their associated sevices matched with a particular service ID
+        /// </returns>
         // GET: api/EmployeeData/GetEmployeesByServiceId/2
         [HttpGet]
         [ResponseType(typeof(List<EmployeeDto>))]
@@ -77,7 +106,23 @@ namespace PassionProject.Controllers
             return Ok(employeesDto);
         }
 
-        // PUT: api/EmployeeData/UpdateEmployee5
+
+        /// <summary>
+        /// Updates a particular employee in the system with POST Data input
+        /// </summary>
+        /// <param name="id">Employee primary key</param>
+        /// <param name="employee">JSON form data of an Employee</param>
+        /// <returns>
+        /// HEADER: 204 (Success, No Content Response)
+        /// or
+        /// HEADER: 400 (Bad Request)
+        /// or
+        /// HEADER: 404 (Not Found)
+        /// </returns>
+        /// <example>
+        /// PUT: api/EmployeeData/UpdateEmployee/5
+        /// FORM DATA: Employee JSON Object
+        /// </example>
         [ResponseType(typeof(void))]
         [HttpPost]
         public IHttpActionResult UpdateEmployee(int id, Employee employee)
@@ -117,9 +162,16 @@ namespace PassionProject.Controllers
         /// <summary>
         /// Used to Unassociate service from the Employee
         /// </summary>
-        /// <param name="employeeId"></param>
-        /// <param name="serviceId"></param>
-        /// <returns></returns>
+        /// <param name="employeeId">Employee primary key</param>
+        /// <param name="serviceId">Service primary key</param>
+        /// <returns>
+        /// HEADER: 200 (OK)
+        /// or
+        /// HEADER: 404 (NOT FOUND)
+        /// </returns>
+        /// <example>
+        /// POST api/EmployeeData/unassociateservicewithemployee/1/2
+        /// </example>
         [HttpPost]
         [Route("api/EmployeeData/unassociateservicewithemployee/{employeeId}/{serviceId}")]
         public IHttpActionResult UnassociateServiceWithEmployee(int employeeId, int serviceId)
@@ -140,11 +192,18 @@ namespace PassionProject.Controllers
 
 
         /// <summary>
-        /// Used to associate service to an employee
+        /// Associates a service to an employee
         /// </summary>
-        /// <param name="employeeId"></param>
-        /// <param name="serviceId"></param>
-        /// <returns></returns>
+        /// <param name="employeeId">Employee primary key</param>
+        /// <param name="serviceId">Service primary key</param>
+        /// <returns>
+        /// HEADER: 200 (OK)
+        /// or
+        /// HEADER: 404 (NOT FOUND)
+        /// </returns>
+        /// <example>
+        /// POST api/EmployeeData/associateservicewithemployee/1/2
+        /// </example>
         [HttpPost]
         [Route("api/EmployeeData/associateservicewithemployee/{employeeId}/{serviceId}")]
         public IHttpActionResult AssociateServiceWithEmployee(int employeeId, int serviceId)
@@ -163,8 +222,20 @@ namespace PassionProject.Controllers
             return Ok();
         }
 
-
-        // POST: api/EmployeeData/AddEmployee
+        /// <summary>
+        /// Adds an employee to the system
+        /// </summary>
+        /// <param name="employee">JSON form data of Employee</param>
+        /// <returns>
+        /// HEADER: 201 (Created)
+        /// CONTENT: Employee ID, Employee Data
+        /// or
+        /// HEADER: 400 (Bad Request)
+        /// </returns>
+        /// <example>
+        /// POST: api/EmployeeData/AddEmployee
+        /// FORM DATA: Employee JSON Object
+        /// </example>
         [ResponseType(typeof(Employee))]
         [HttpPost]
         public IHttpActionResult AddEmployee(Employee employee)
@@ -180,7 +251,19 @@ namespace PassionProject.Controllers
             return CreatedAtRoute("DefaultApi", new { id = employee.EmployeeId }, employee);
         }
 
-        // POST: api/EmployeeData/DeleteEmployee/5
+        /// <summary>
+        /// Deletes an employee from the system by it's id.
+        /// </summary>
+        /// <param name="id">Employee Primary Key</param>
+        /// <returns>
+        ///  HEADER: 200 (OK)
+        /// or
+        /// HEADER: 404 (NOT FOUND)
+        /// </returns>
+        /// <example>
+        /// POST: api/EmployeeData/DeleteEmployee/5
+        /// FORM DATA: (empty)
+        /// </example>
         [HttpPost]
         [ResponseType(typeof(Employee))]
         public IHttpActionResult DeleteEmployee(int id)

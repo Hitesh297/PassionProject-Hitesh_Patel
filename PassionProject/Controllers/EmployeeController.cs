@@ -110,6 +110,7 @@ namespace PassionProject.Controllers
             return View(viewModel);
         }
 
+        //GET: /Employee/UnassociateService?id={EmployeeId}&serviceId={ServiceId}
         [HttpGet]
         public ActionResult UnassociateService(int id, int serviceId)
         {
@@ -137,6 +138,7 @@ namespace PassionProject.Controllers
             }
         }
 
+        //POST: Employee/AssociateService/{employeeId}
         [HttpPost]
         public ActionResult AssociateService(int id, int serviceId)
         {
