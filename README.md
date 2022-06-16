@@ -13,8 +13,8 @@
 3. Appointment
 ---
 ### Relationships:
-- Employee is the person provising the service.
-- Service in current context is for example Hair Cut, Hair colour etc.
+- Employee is the person providing the service.
+- Service in current context is Hair Cut, Hair colour etc.
 - Appointment can be booked by a customer by selecting the service, employee and the date and time of appointment.
 - An Employee can provide multiple service.
 - A service can be provided by multiple employeed.
