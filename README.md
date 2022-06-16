@@ -24,7 +24,7 @@ Clicked by : Toa Heftiba (https://unsplash.com/photos/H8y_8tbkSnw)
 - Service in current context is Hair Cut, Hair colour etc.
 - Appointment can be booked by a customer by selecting the service, employee and the date and time of appointment.
 - An Employee can provide multiple service.
-- A service can be provided by multiple employeed.
+- A service can be provided by multiple employees.
 ---
 ### Features:
 - Authentication
