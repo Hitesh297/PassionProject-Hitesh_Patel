@@ -62,5 +62,9 @@ The application is made responsive to suppport multiple screen sizes.
 2. Allow selection of multiple services.
 3. Show bio of selected employee while booking appointment.
 4. Hide admin only feature links from guest user.
+---
 
+### Hosting
+Hosting Platform: Microsoft Azure
+View live at [https://passionproject20220616162714.azurewebsites.net/](https://passionproject20220616162714.azurewebsites.net/)
 
