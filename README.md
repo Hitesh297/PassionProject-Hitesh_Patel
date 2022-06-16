@@ -1,5 +1,5 @@
 
-<img src="Content/Images/home3.jpg" height="200">
+<img src="PassionProject/Content/Images/home3.jpg" height="200">
 ## Passion Project - 2022 - ASP.NET
 
 **This project is created for a Hair Salon to manage employee & service information and for booking apointments**
