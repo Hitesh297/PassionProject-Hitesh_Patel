@@ -66,5 +66,6 @@ The application is made responsive to suppport multiple screen sizes.
 
 ### Hosting
 Hosting Platform: Microsoft Azure
+
 View live at [https://passionproject20220616162714.azurewebsites.net/](https://passionproject20220616162714.azurewebsites.net/)
 
