@@ -53,6 +53,11 @@ Clicked by : Toa Heftiba (https://unsplash.com/photos/H8y_8tbkSnw)
 ---
 ### Additional Features:
 The application is made responsive to suppport multiple screen sizes.
-
+---
+### Features to be added in future:
+1. Include payment option before confirming appointment.
+2. Allow selection of multiple services.
+3. Show bio of selected employee while booking appointment.
+4. Hide admin only feature links from guest user.
 
 
