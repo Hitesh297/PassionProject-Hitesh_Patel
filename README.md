@@ -20,7 +20,7 @@
 - A service can be provided by multiple employeed.
 ---
 ### Features:
--Authentication
+- Authentication
 1. Only Admin can perform add, update and delete operations on Employees & Services.
 2. String token is passed to API for authentication.
 
