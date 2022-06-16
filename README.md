@@ -52,7 +52,7 @@ Clicked by : Toa Heftiba (https://unsplash.com/photos/H8y_8tbkSnw)
 4. User can see up coming appointments on employee details page.
 ---
 ### Additional Features:
-The application is made responsive to suppport multiple screen sizes.
+## The application is made responsive to suppport multiple screen sizes.
 ---
 ### Features to be added in future:
 1. Include payment option before confirming appointment.
