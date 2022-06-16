@@ -2,9 +2,6 @@
 <img src="PassionProject/Content/Images/title.png">
 
 
-
-## Passion Project - 2022 - ASP.NET
-
 **This project is created for a Hair Salon to manage employee details, service details and for booking appointments**
 
 ### Setting up the databse:
