@@ -3,9 +3,11 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - My ASP.NET Application</title>
+    <title>@ViewBag.Title - My Barber</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
+    <script src="~/Scripts/script.js"></script>
+    <script src="https://kit.fontawesome.com/08690c32d6.js" crossorigin="anonymous"></script>
 
 </head>
 <body>
@@ -17,13 +19,13 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                @Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                @Html.ActionLink("My Barber", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Employee", "List", "Employee")</li>
-                    <li>@Html.ActionLink("Service", "List", "Service")</li>
-                    <li>@Html.ActionLink("Appointments", "Create", "Appointment")</li>
+                    <li>@Html.ActionLink("Employees", "List", "Employee")</li>
+                    <li>@Html.ActionLink("Services", "List", "Service")</li>
+                    <li>@Html.ActionLink("Appointment", "Create", "Appointment")</li>
                 </ul>
                 @Html.Partial("_LoginPartial")
             </div>
@@ -33,7 +35,7 @@
         @RenderBody()
         <hr />
         <footer>
-            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
+            <p>&copy; @DateTime.Now.Year - My Barber Application</p>
         </footer>
     </div>
 

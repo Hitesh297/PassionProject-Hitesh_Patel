@@ -204,6 +204,10 @@
     <Compile Include="Migrations\202205300601350_dojColumnUpdate.Designer.cs">
       <DependentUpon>202205300601350_dojColumnUpdate.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202206132259265_AddedFieldsForImage.cs" />
+    <Compile Include="Migrations\202206132259265_AddedFieldsForImage.Designer.cs">
+      <DependentUpon>202206132259265_AddedFieldsForImage.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Appointment.cs" />
@@ -285,6 +289,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Content\Images\Employees\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
@@ -308,6 +313,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202205300601350_dojColumnUpdate.resx">
       <DependentUpon>202205300601350_dojColumnUpdate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202206132259265_AddedFieldsForImage.resx">
+      <DependentUpon>202206132259265_AddedFieldsForImage.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

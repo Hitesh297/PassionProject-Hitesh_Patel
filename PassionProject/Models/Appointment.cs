@@ -26,11 +26,14 @@ namespace PassionProject.Models
     public class AppointmentDto
     {
         public int AppointmentId { get; set; }
+        [Display(Name = "Customer Name:")]
         public string CustomerName { get; set; }
+        [Display(Name = "Customer Email:")]
         public string CustomerEmail { get; set; }
         public int ServiceId { get; set; }
         public int EmployeeId { get; set; }
         public DateTime StartTime { get; set; }
         public DateTime EndTime { get; set; }
+        public string ServiceName { get; set; }
     }
 }

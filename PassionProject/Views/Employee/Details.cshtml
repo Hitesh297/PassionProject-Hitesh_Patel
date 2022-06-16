@@ -9,40 +9,113 @@
 <div>
     <h4>Employee</h4>
     <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Fname)
-        </dt>
+    <div id="flex-container">
+        <div id="employee-details-section">
+            <div>
+                @{
+                    string imageurl = "/Content/Images/Employees/default.jpg";
+                    if (Model.EmployeeHasPic)
+                    {
+                        imageurl = "/Content/Images/Employees/" + Model.EmployeeId + "." + Model.PicExtension;
+                    }
+                }
+                <div><img style="display:block; max-width:200px;" alt="@Model.Fname" src="@imageurl" /></div>
+            </div>
 
-        <dd>
-            @Html.DisplayFor(model => model.Fname)
-        </dd>
+            <table id="employee-details" class="dl-horizontal">
+                <tr>
+                    <td class="field">
+                        @Html.DisplayNameFor(model => model.Fname)
+                    </td>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Lname)
-        </dt>
+                    <td>
+                        @Html.DisplayFor(model => model.Fname)
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field">
+                        @Html.DisplayNameFor(model => model.Lname)
+                    </td>
 
-        <dd>
-            @Html.DisplayFor(model => model.Lname)
-        </dd>
+                    <td>
+                        @Html.DisplayFor(model => model.Lname)
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field">
+                        @Html.DisplayNameFor(model => model.DOJ)
+                    </td>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.DOJ)
-        </dt>
+                    <td>
+                        @Model.DOJ.ToString("dd/MM/yyyy")
+                        @*@Html.DisplayFor(model => model.DOJ)*@
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field">
+                        @Html.DisplayNameFor(model => model.Bio)
+                    </td>
 
-        <dd>
-            @Html.DisplayFor(model => model.DOJ)
-        </dd>
+                    <td>
+                        @Html.DisplayFor(model => model.Bio)
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div id="appointments-section">
+            <h3 style="text-align:center;">Appointments</h3>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Bio)
-        </dt>
+            @*@{
+            foreach (var appointment in Model.Appointments)
+            {
+                        <tr>
+                            <td>@appointment.CustomerName</td>
+                            <td>@appointment.CustomerEmail</td>
+                            <td>@appointment.ServiceName</td>
+                            <td>@appointment.StartTime</td>
+                            <td>@appointment.EndTime</td>
+                        </tr>
+            }
+        }*@
 
-        <dd>
-            @Html.DisplayFor(model => model.Bio)
-        </dd>
+            @{
+                if (Model.AppointmentGroup == null || Model.AppointmentGroup.Count() == 0)
+                {
+                    <span>No appointments scheduled.</span>
+                }
+                foreach (var date in Model.AppointmentGroup.OrderByDescending(x=>x.Key))
+                {
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h4>@date.Key.ToString("D")</h4>
+                        </div>
+                        <div class="panel-body">
+                            <table class="table table-dark">
+                                <tr>
+                                    <th scope="col">Customer Name</th>
+                                    <th class="optional-item" scope="col">Customer Email</th>
+                                    <th scope="col">Service Name</th>
+                                    <th scope="col">Start Time</th>
+                                    <th class="optional-item" scope="col">End Time</th>
+                                </tr>
+                                @foreach (var appointment in date)
+                                {
+                                    <tr>
+                                        <td>@appointment.CustomerName</td>
+                                        <td class="optional-item">@appointment.CustomerEmail</td>
+                                        <td>@appointment.ServiceName</td>
+                                        <td>@appointment.StartTime.TimeOfDay</td>
+                                        <td class="optional-item">@appointment.EndTime.TimeOfDay</td>
+                                    </tr>
+                                }
+                            </table>
+                        </div>
+                    </div>
+                }
+            }
 
-    </dl>
+        </div>
+    </div>
 </div>
 <p>
     @Html.ActionLink("Edit", "Edit", new { id = Model.EmployeeId }) |

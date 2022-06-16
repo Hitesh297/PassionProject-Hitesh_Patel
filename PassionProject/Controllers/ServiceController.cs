@@ -15,9 +15,32 @@ namespace PassionProject.Controllers
         private JavaScriptSerializer jss = new JavaScriptSerializer();
         static ServiceController()
         {
-            client = new HttpClient();
+            HttpClientHandler handler = new HttpClientHandler()
+            {
+                AllowAutoRedirect = false,
+                //cookies are manually set in RequestHeader
+                UseCookies = false
+            };
+            client = new HttpClient(handler);
             client.BaseAddress = new Uri("https://localhost:44364/api/");
 
+        }
+
+        /// <summary>
+        /// Grabs the authentication cookie sent to this controller.
+        /// </summary>
+        private void GetApplicationCookie()
+        {
+            string token = "";
+            client.DefaultRequestHeaders.Remove("Cookie");
+            if (!User.Identity.IsAuthenticated) return;
+
+            HttpCookie cookie = System.Web.HttpContext.Current.Request.Cookies.Get(".AspNet.ApplicationCookie");
+            if (cookie != null) token = cookie.Value;
+
+            if (token != "") client.DefaultRequestHeaders.Add("Cookie", ".AspNet.ApplicationCookie=" + token);
+
+            return;
         }
         // GET: Service/List
         public ActionResult List()
@@ -39,6 +62,7 @@ namespace PassionProject.Controllers
         }
 
         // GET: Service/Create
+        [Authorize]
         public ActionResult Create()
         {
             return View();
@@ -46,10 +70,12 @@ namespace PassionProject.Controllers
 
         // POST: Service/Create
         [HttpPost]
+        [Authorize]
         public ActionResult Create(Service service)
         {
             try
             {
+                GetApplicationCookie();
                 string url = "servicedata/addservice";
 
                 string jsonpayload = jss.Serialize(service);
@@ -74,6 +100,7 @@ namespace PassionProject.Controllers
         }
 
         // GET: Service/Edit/5
+        [Authorize]
         public ActionResult Edit(int id)
         {
             string url = "servicedata/findservice/" + id;
@@ -84,10 +111,12 @@ namespace PassionProject.Controllers
 
         // POST: Service/Edit/5
         [HttpPost]
+        [Authorize]
         public ActionResult Edit(int id, Service service)
         {
             try
             {
+                GetApplicationCookie();
                 string url = "servicedata/updateservice/" + id;
                 string jsonpayload = jss.Serialize(service);
                 HttpContent content = new StringContent(jsonpayload);
@@ -111,6 +140,7 @@ namespace PassionProject.Controllers
 
         // GET: Service/Delete/5
         [HttpGet]
+        [Authorize]
         public ActionResult ConfirmDelete(int id)
         {
             string url = "servicedata/findservice/" + id;
@@ -121,10 +151,12 @@ namespace PassionProject.Controllers
 
         // POST: Service/Delete/5
         [HttpPost]
+        [Authorize]
         public ActionResult Delete(int id)
         {
             try
             {
+                GetApplicationCookie();
                 string url = "servicedata/deleteservice/" + id;
                 HttpContent content = new StringContent("");
                 content.Headers.ContentType.MediaType = "application/json";

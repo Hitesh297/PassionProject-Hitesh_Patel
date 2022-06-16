@@ -23,10 +23,6 @@ textarea {
     max-width: 280px;
 }
 
-.page-container {
-    display: flex;
-}
-
 #form-section, #service-section {
     width: 50%;
 }
@@ -35,8 +31,244 @@ textarea {
     min-height: 200px;
 }
 
-#skill-container ul {
-    border: 1px solid;
-    padding: 25px 40px 25px 40px;
+    #skill-container ul {
+        border: 1px solid;
+        padding: 25px 40px 25px 40px;
+        border-radius: 5px;
+    }
+
+#employee-details td {
+    padding: 5px;
+}
+
+#employee-details td {
+    padding: 5px;
+}
+
+.field {
+    font-weight: 700;
+}
+
+#flex-container {
+    display: flex;
+    /*gap: 100px;*/
+    flex-wrap:wrap;
+    padding:0 10px 0 10px;
+}
+
+.page-cont {
+    display: flex;
+    gap:40px;
+    flex-wrap: wrap;
+    padding: 0 10px 0 10px;
+}
+
+#form-section {
+    flex-basis:200px;
+    flex-grow:1;
+    width:50%;
+}
+
+#service-section {
+    flex-basis: 200px;
+    flex-grow: 1;
+    width: 50%;
+}
+
+#employee-details-section {
+    flex-grow:1;
+}
+#appointments-section {
+    flex-grow:1;
+}
+.panel-heading {
+    padding: 1px 15px !important;
+    border-bottom: 1px solid transparent;
+    border-top-left-radius: 3px;
+    border-top-right-radius: 3px;
+}
+
+.panel-body {
+    padding: 0 !important;
+}
+
+/*body{
+    background-color: black !important;
+}*/
+/*
+label, td, th, h2, h4 {
+    color:antiquewhite;
+}*/
+
+#home-img {
+    /* position: fixed;
+    left: 0;
+    top: 0;*/
+}
+
+.navbar {
+    background: #48bdc5;
+    border:none;
+}
+
+.navbar-inverse .navbar-brand {
+    color: #ffff;
+    font-weight:bold;
+}
+
+.navbar-inverse .navbar-nav > li > a {
+    color: #ffff;
+    font-size:16px;
+}
+
+.cta-block {
+    display: flex;
+    border-radius: 4px;
+    overflow: hidden;
+    flex-wrap:wrap;
+}
+
+.cta-block .item {
+    padding: 20px 30px;
+    flex-basis: 33.33%;
+    flex-grow:1;
+}
+
+.cta-block .emmergency a {
+    color: #ffff;
+    font-size: 30px;
+}
+
+.cta-block .emmergency {
+    background: #48bdc5;
+}
+
+    .cta-block .top-services {
+        background: #5bc4cb;
+    }
+
+.cta-block .working-time {
+    background: #6fcbd1;
+}
+
+    .cta-block .top-services .btn-main {
+        margin-top: 10px;
+        color: #fff;
+        border: 1px solid #fff;
+        padding: 10px 20px;
+        transition: all .3s ease;
+    }
+
+.cta-block .item h2 {
+    font-weight: normal;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-size: 25px;
+    margin-bottom: 30px;
+}
+
+.cta-block .item i, .cta-block .item h2, .cta-block .item p {
+    transition: all .2s ease;
+    color: #fff;
+}
+
+.cta-block .working-time ul li:not(:last-child) {
+    border-bottom: 1px solid #fff;
+}
+
+.cta-block .working-time ul li {
+    color: #fff;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+.cta-block .working-time ul li span {
+    float: right;
+}
+
+.cta-block .working-time ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.home-screen {
+    position: relative;
     border-radius: 5px;
+    overflow: hidden;
+    margin: 10px 0 10px 0;
+}
+
+.home-content {
+    text-align: center;
+    color: white;
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
+
+    .home-content h1 {
+        font-size: clamp(10px, 3vw, 80px);
+        text-transform: capitalize;
+        font-weight: 600;
+        font-family: "Roboto", sans-serif;
+        color: #ffff;
+    }
+
+.lead {
+    font-size: clamp(10px, 3vw, 30px);
+    margin-bottom:5px;
+}
+
+.btn-lg {
+    font-size: clamp(10px, 3vw, 20px);
+}
+
+p {
+    font-family: "Source Sans Pro", sans-serif;
+}
+
+.navbar li:hover {
+    background-color: #39959b;
+}
+
+@media screen and (max-width: 1200px) {
+    #flex-container {
+       justify-content:center;
+    }
+    
+}
+
+@media screen and (max-width: 700px) {
+    /*.container {
+        margin:10px;
+    }*/
+    .optional-item {
+        display: none;
+    }
+}
+
+@media screen and (max-width: 524px) {
+    #skill-container {
+         min-height: 0; 
+    }
+    #associate-form {
+        padding-bottom:20px;
+    }
+    .page-cont {
+        justify-content:center;
+    }
+
+    .form-horizontal {
+        justify-content: center;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
 }

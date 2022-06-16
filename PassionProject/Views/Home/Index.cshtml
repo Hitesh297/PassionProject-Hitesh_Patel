@@ -1,31 +1,46 @@
 ﻿@{
     ViewBag.Title = "Home Page";
 }
-
-<div class="jumbotron">
-    <h1>ASP.NET</h1>
-    <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>
-    <p><a href="https://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
+<div class="home-screen">
+    <img id="home-img" width="100%" src="~/Content/Images/home3.jpg" />
+    <div style="" class="home-content">
+        @*background-image:url('https://swiftsites.tech/greathairsalon/wp-content/uploads/2020/06/jens-lindner-dP6g1YJWQcA-unsplash-gallery.jpg')"*@
+        <h1>Get The Best For Your Hair</h1>
+        <p class="lead">Book an appointment now and get 20% discount!</p>
+        <p><a href="Appointment/Create" class="btn btn-primary btn-lg">Book an Appointment &raquo;</a></p>
+        
+        @*<button>Book Appointment</button>*@
+    </div>
 </div>
 
 <div class="row">
-    <div class="col-md-4">
-        <h2>Getting started</h2>
-        <p>
-            ASP.NET MVC gives you a powerful, patterns-based way to build dynamic websites that
-            enables a clean separation of concerns and gives you full control over markup
-            for enjoyable, agile development.
-        </p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301865">Learn more &raquo;</a></p>
-    </div>
-    <div class="col-md-4">
-        <h2>Get more libraries</h2>
-        <p>NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.</p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301866">Learn more &raquo;</a></p>
-    </div>
-    <div class="col-md-4">
-        <h2>Web Hosting</h2>
-        <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
+    <div class="col-md-12">
+        <div class="cta-block">
+            <div class="emmergency item">
+                <i class="fa fa-phone"></i>
+                <h2>Contact Us</h2>
+                <a href="#">1-000-000-0000</a>
+                <p></p>
+            </div>
+            <div class="top-services item">
+                <i class=""></i>
+                <h2>Our Services</h2>
+                <p>
+                    We offer a wide range of beauty services for men and women together, in the same salon, right in the heart of downtown!
+                    <br />
+                    Hairdressers, colourists, certified stylists and skin care laser specialists!
+                </p>
+                <a href="Service/List" class="btn btn-main">Read more</a>
+            </div>
+            <div class="working-time item">
+                <i class="fa fa-hourglass-o"></i>
+                <h2>Working Hours</h2>
+                <ul class="w-hours">
+                    <li>Mon - Fri  - <span>8:00 - 17:00</span></li>
+                    <li>Mon - Fri  - <span>8:00 - 17:00</span></li>
+                    <li>Mon - Fri  - <span>8:00 - 17:00</span></li>
+                </ul>
+            </div>
+        </div>
     </div>
 </div>

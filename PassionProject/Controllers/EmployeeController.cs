@@ -15,10 +15,34 @@ namespace PassionProject.Controllers
         private JavaScriptSerializer jss = new JavaScriptSerializer();
         static EmployeeController()
         {
-            client = new HttpClient();
+            HttpClientHandler handler = new HttpClientHandler()
+            {
+                AllowAutoRedirect = false,
+                //cookies are manually set in RequestHeader
+                UseCookies = false
+            };
+            client = new HttpClient(handler);
             client.BaseAddress = new Uri("https://localhost:44364/api/");
 
         }
+
+        /// <summary>
+        /// Grabs the authentication cookie sent to this controller.
+        /// </summary>
+        private void GetApplicationCookie()
+        {
+            string token = "";
+            client.DefaultRequestHeaders.Remove("Cookie");
+            if (!User.Identity.IsAuthenticated) return;
+
+            HttpCookie cookie = System.Web.HttpContext.Current.Request.Cookies.Get(".AspNet.ApplicationCookie");
+            if (cookie != null) token = cookie.Value;
+
+            if (token != "") client.DefaultRequestHeaders.Add("Cookie", ".AspNet.ApplicationCookie=" + token);
+
+            return;
+        }
+
         // GET: Employee/List
         public ActionResult List()
         {
@@ -35,6 +59,12 @@ namespace PassionProject.Controllers
             HttpResponseMessage response = client.GetAsync(url).Result;
 
             EmployeeDto selectedEmployee = response.Content.ReadAsAsync<EmployeeDto>().Result;
+
+            url = "appointmentdata/FindAppointmentsByEmployee/" + id;
+            response = client.GetAsync(url).Result;
+            selectedEmployee.Appointments = response.Content.ReadAsAsync<List<AppointmentDto>>().Result;
+
+            //IEnumerable<IGrouping<DateTime,AppointmentDto>> appointmentsGroup = selectedEmployee.Appointments.GroupBy(x => x.StartTime.Date);
             return View(selectedEmployee);
         }
 
@@ -49,6 +79,7 @@ namespace PassionProject.Controllers
 
         // GET: Employee/Create
         [HttpGet]
+        [Authorize]
         public ActionResult Create()
         {
             return View();
@@ -56,12 +87,13 @@ namespace PassionProject.Controllers
 
         // POST: Employee/Create
         [HttpPost]
+        [Authorize]
         public ActionResult Create(Employee employee)
         {
             try
             {
+                GetApplicationCookie();
                 string url = "employeedata/addemployee";
-
 
                 string jsonpayload = jss.Serialize(employee);
 
@@ -86,6 +118,7 @@ namespace PassionProject.Controllers
 
         // GET: Employee/Edit/5
         [HttpGet]
+        [Authorize]
         public ActionResult Edit(int id)
         {
             EmployeeVM viewModel = new EmployeeVM();
@@ -112,10 +145,12 @@ namespace PassionProject.Controllers
 
         //GET: /Employee/UnassociateService?id={EmployeeId}&serviceId={ServiceId}
         [HttpGet]
+        [Authorize]
         public ActionResult UnassociateService(int id, int serviceId)
         {
             try
             {
+                GetApplicationCookie();
                 string url = "employeedata/unassociateservicewithemployee/" + id + "/" + serviceId;
                 HttpContent content = new StringContent("");
                 content.Headers.ContentType.MediaType = "application/json";
@@ -140,10 +175,12 @@ namespace PassionProject.Controllers
 
         //POST: Employee/AssociateService/{employeeId}
         [HttpPost]
+        [Authorize]
         public ActionResult AssociateService(int id, int serviceId)
         {
             try
             {
+                GetApplicationCookie();
                 string url = "employeedata/associateservicewithemployee/" + id + "/" + serviceId;
                 HttpContent content = new StringContent("");
                 content.Headers.ContentType.MediaType = "application/json";
@@ -152,6 +189,7 @@ namespace PassionProject.Controllers
                 if (response.IsSuccessStatusCode)
                 {
                     return RedirectToAction("Edit/" + id);
+                    //return Redirect($"{Url.Action("Edit", new { id = id })}#associate-form");
                 }
                 else
                 {
@@ -168,17 +206,31 @@ namespace PassionProject.Controllers
 
         // POST: Employee/Edit/5
         [HttpPost]
-        public ActionResult Edit(int id, Employee employee)
+        [Authorize]
+        public ActionResult Edit(int id, Employee employee, HttpPostedFileBase EmployeePic)
         {
             try
             {
+                GetApplicationCookie();
                 string url = "employeedata/updateemployee/" + id;
                 string jsonpayload = jss.Serialize(employee);
                 HttpContent content = new StringContent(jsonpayload);
                 content.Headers.ContentType.MediaType = "application/json";
                 HttpResponseMessage response = client.PostAsync(url, content).Result;
 
-                if (response.IsSuccessStatusCode)
+                if (response.IsSuccessStatusCode && EmployeePic != null)
+                {
+                    url = "EmployeeData/UploadEmployeePic/" + id;
+                    MultipartFormDataContent requestcontent = new MultipartFormDataContent();
+
+                    HttpContent imagecontent = new StreamContent(EmployeePic.InputStream);
+                    requestcontent.Add(imagecontent, "EmployeePic", EmployeePic.FileName);
+
+                    response = client.PostAsync(url, requestcontent).Result;
+
+                    return RedirectToAction("List");
+                }
+                else if (response.IsSuccessStatusCode)
                 {
                     return RedirectToAction("List");
                 }
@@ -195,6 +247,7 @@ namespace PassionProject.Controllers
 
         // GET: Employee/Delete/5
         [HttpGet]
+        [Authorize]
         public ActionResult DeleteConfirm(int id)
         {
             string url = "employeedata/findemployee/" + id;
@@ -205,10 +258,12 @@ namespace PassionProject.Controllers
 
         // POST: Employee/Delete/5
         [HttpPost]
+        [Authorize]
         public ActionResult Delete(int id)
         {
             try
             {
+                GetApplicationCookie();
                 string url = "employeedata/deleteemployee/" + id;
                 HttpContent content = new StringContent("");
                 content.Headers.ContentType.MediaType = "application/json";

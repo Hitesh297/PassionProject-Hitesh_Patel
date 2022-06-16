@@ -149,6 +149,7 @@ namespace PassionProject.Controllers
         /// </example>
         [ResponseType(typeof(void))]
         [HttpPost]
+        [Authorize]
         public IHttpActionResult UpdateService(int id, Service service)
         {
 
@@ -200,6 +201,7 @@ namespace PassionProject.Controllers
         /// </example>
         [ResponseType(typeof(Service))]
         [HttpPost]
+        [Authorize]
         public IHttpActionResult AddService(Service service)
         {
             if (!ModelState.IsValid)
@@ -229,6 +231,7 @@ namespace PassionProject.Controllers
         /// </example>
         [ResponseType(typeof(Service))]
         [HttpPost]
+        [Authorize]
         public IHttpActionResult DeleteService(int id)
         {
             Service service = db.Services.Find(id);

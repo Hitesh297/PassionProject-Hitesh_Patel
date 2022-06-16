@@ -1,4 +1,6 @@
-﻿using PassionProject.Models;
+﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
+using PassionProject.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -46,14 +48,21 @@ namespace PassionProject.Controllers
         {
             try
             {
-                string url = "appointmentdata/addappointment";
+                string url = "servicedata/findservice/" + appointment.ServiceId;
+                HttpResponseMessage response = client.GetAsync(url).Result;
+                ServiceDto selectedService = response.Content.ReadAsAsync<ServiceDto>().Result;
 
-                string jsonpayload = jss.Serialize(appointment);
+                appointment.EndTime = appointment.StartTime.AddMinutes(selectedService.Duration);
+                url = "appointmentdata/addappointment";
+
+                // Javascript serializer has an issue with date coversion, the receiver deserializes
+                // a different time then what is sent, Newtonsoft.Json doesn't have that problem
+                string jsonpayload = JsonConvert.SerializeObject(appointment);
 
                 HttpContent content = new StringContent(jsonpayload);
                 content.Headers.ContentType.MediaType = "application/json";
 
-                HttpResponseMessage response = client.PostAsync(url, content).Result;
+                response = client.PostAsync(url, content).Result;
                 if (response.IsSuccessStatusCode)
                 {
                     return RedirectToAction("Index","Home");

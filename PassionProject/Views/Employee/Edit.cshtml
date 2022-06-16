@@ -7,64 +7,84 @@
 <h2>Edit</h2>
 <h4>Employee</h4>
 <hr />
-<div class="page-container">
+<div class="page-cont">
     <div id="form-section">
-        @using (Html.BeginForm())
+        @using (Html.BeginForm(null, null, FormMethod.Post, new { enctype = "multipart/form-data" }))
         {
             @Html.AntiForgeryToken()
 
-            <div class="form-horizontal">
+        <div class="form-horizontal">
 
-                @*@Html.ValidationSummary(true, "", new { @class = "text-danger" })*@
-                @*@Html.HiddenFor(model => model.Employee.EmployeeId)*@
-                <input type="hidden" name="EmployeeId" value="@Model.Employee.EmployeeId" />
-                <div class="form-group">
-                    @*@Html.LabelFor(model => model.Fname, htmlAttributes: new { @class = "control-label col-md-2" })
-                        <div class="col-md-10">
-                            @Html.EditorFor(model => model.Fname, new { htmlAttributes = new { @class = "form-control" } })
-                            @Html.ValidationMessageFor(model => model.Fname, "", new { @class = "text-danger" })
-                        </div>*@
-                    <label>First Name:</label> <input type="text" name="Fname" value="@Model.Employee.Fname" />
-                </div>
+            @*@Html.ValidationSummary(true, "", new { @class = "text-danger" })*@
+            @*@Html.HiddenFor(model => model.Employee.EmployeeId)*@
+            <input type="hidden" name="EmployeeId" value="@Model.Employee.EmployeeId" />
+            <input type="hidden" name="EmployeeHasPic" value="@Model.Employee.EmployeeHasPic.ToString()" />
+            <input type="hidden" name="PicExtension" value="@Model.Employee.PicExtension" />
+            <div class="form-group">
+                @{
+                    string imageurl = "/Content/Images/Employees/default.jpg";
+                    if (Model.Employee.EmployeeHasPic)
+                    {
+                        imageurl = "/Content/Images/Employees/" + Model.Employee.EmployeeId + "." + Model.Employee.PicExtension;
+                    }
+                }
+                <div><img id="profile-pic" style="display:block; max-width:150px; padding-bottom:5px;" alt="@Model.Employee.Fname" src="@imageurl" /></div>
+                <input id="imgInput" type="file" name="EmployeePic" />
+            </div>
+            <div class="form-group">
+                @*@Html.LabelFor(model => model.Fname, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Fname, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Fname, "", new { @class = "text-danger" })
+            </div>*@
+                <label>First Name:</label> <input type="text" name="Fname" value="@Model.Employee.Fname" />
+            </div>
 
-                <div class="form-group">
-                    @*@Html.LabelFor(model => model.Lname, htmlAttributes: new { @class = "control-label col-md-2" })
-                        <div class="col-md-10">
-                            @Html.EditorFor(model => model.Lname, new { htmlAttributes = new { @class = "form-control" } })
-                            @Html.ValidationMessageFor(model => model.Lname, "", new { @class = "text-danger" })
-                        </div>*@
-                    <label>Last Name:</label> <input type="text" name="Lname" value="@Model.Employee.Lname" />
-                </div>
+            <div class="form-group">
+                @*@Html.LabelFor(model => model.Lname, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Lname, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Lname, "", new { @class = "text-danger" })
+            </div>*@
+                <label>Last Name:</label> <input type="text" name="Lname" value="@Model.Employee.Lname" />
+            </div>
 
-                <div class="form-group">
-                    @*@Html.LabelFor(model => model.DOJ, htmlAttributes: new { @class = "control-label col-md-2" })
-                        <div class="col-md-10">
-                            @Html.EditorFor(model => model.DOJ, new { htmlAttributes = new { @class = "form-control" } })
-                            @Html.ValidationMessageFor(model => model.DOJ, "", new { @class = "text-danger" })
-                        </div>*@
-                    <label>Date of Joining:</label> <input type="date" name="DOJ" value="@Model.Employee.DOJ.ToString("yyyy-MM-dd")" />
-                </div>
+            <div class="form-group">
+                @*@Html.LabelFor(model => model.DOJ, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.DOJ, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.DOJ, "", new { @class = "text-danger" })
+            </div>*@
+                <label>Date of Joining:</label> <input type="date" name="DOJ" value="@Model.Employee.DOJ.ToString("yyyy-MM-dd")" />
+            </div>
 
-                <div class="form-group">
-                    @*@Html.LabelFor(model => model.Bio, htmlAttributes: new { @class = "control-label col-md-2" })
-                        <div class="col-md-10">
-                            @Html.EditorFor(model => model.Bio, new { htmlAttributes = new { @class = "form-control" } })
-                            @Html.ValidationMessageFor(model => model.Bio, "", new { @class = "text-danger" })
-                        </div>*@
-                    <label>Bio:</label> <input type="text" name="Bio" value="@Model.Employee.Bio" />
-                </div>
+            <div class="form-group">
+                @*@Html.LabelFor(model => model.Bio, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Bio, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Bio, "", new { @class = "text-danger" })
+            </div>*@
+                <label style="display:block">Bio:</label>
+                <textarea rows="4" cols="35" type="text" name="Bio">@Model.Employee.Bio</textarea>
 
-                <div class="form-group">
-                    <div class="col-md-offset-2 col-md-10">
-                        <input type="submit" value="Save" class="btn btn-default" />
-                    </div>
+            </div>
+
+
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Save" class="btn btn-default" />
                 </div>
             </div>
+        </div>
         }
     </div>
     <div id="service-section">
         <label>Skills</label>
         <div id="skill-container">
+            @if (Model.ServicesAssigned == null || Model.ServicesAssigned.Count() == 0)
+            {
+                <span>No Skills Assigned.</span>
+            }
             <ul>
                 @foreach (var service in Model.ServicesAssigned)
                 {
@@ -74,7 +94,7 @@
             </ul>
         </div>
 
-        <form method="POST" action="/Employee/AssociateService/@Model.Employee.EmployeeId">
+        <form id="associate-form" method="POST" action="/Employee/AssociateService/@Model.Employee.EmployeeId">
             <label>Add Skill:</label>
             <select name="serviceId">
                 @foreach (var service in Model.ServicesAvailable)

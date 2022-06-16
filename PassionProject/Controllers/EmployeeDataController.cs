@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Web;
 using System.Web.Http;
 using System.Web.Http.Description;
 using PassionProject.Models;
@@ -37,7 +39,9 @@ namespace PassionProject.Controllers
                 Fname = a.Fname,
                 Lname = a.Lname,
                 DOJ = a.DOJ,
-                Bio = a.Bio
+                Bio = a.Bio,
+                EmployeeHasPic = a.EmployeeHasPic,
+                PicExtension = a.PicExtension
             }));
             return Ok(employeeDtos);
         }
@@ -71,7 +75,9 @@ namespace PassionProject.Controllers
                 Fname = employee.Fname,
                 Lname = employee.Lname,
                 DOJ = employee.DOJ,
-                Bio = employee.Bio
+                Bio = employee.Bio,
+                EmployeeHasPic = employee.EmployeeHasPic,
+                PicExtension = employee.PicExtension
             };
 
             return Ok(employee);
@@ -125,6 +131,7 @@ namespace PassionProject.Controllers
         /// </example>
         [ResponseType(typeof(void))]
         [HttpPost]
+        [Authorize]
         public IHttpActionResult UpdateEmployee(int id, Employee employee)
         {
             if (!ModelState.IsValid)
@@ -173,6 +180,7 @@ namespace PassionProject.Controllers
         /// POST api/EmployeeData/unassociateservicewithemployee/1/2
         /// </example>
         [HttpPost]
+        [Authorize]
         [Route("api/EmployeeData/unassociateservicewithemployee/{employeeId}/{serviceId}")]
         public IHttpActionResult UnassociateServiceWithEmployee(int employeeId, int serviceId)
         {
@@ -205,6 +213,7 @@ namespace PassionProject.Controllers
         /// POST api/EmployeeData/associateservicewithemployee/1/2
         /// </example>
         [HttpPost]
+        [Authorize]
         [Route("api/EmployeeData/associateservicewithemployee/{employeeId}/{serviceId}")]
         public IHttpActionResult AssociateServiceWithEmployee(int employeeId, int serviceId)
         {
@@ -238,6 +247,7 @@ namespace PassionProject.Controllers
         /// </example>
         [ResponseType(typeof(Employee))]
         [HttpPost]
+        [Authorize]
         public IHttpActionResult AddEmployee(Employee employee)
         {
             if (!ModelState.IsValid)
@@ -266,6 +276,7 @@ namespace PassionProject.Controllers
         /// </example>
         [HttpPost]
         [ResponseType(typeof(Employee))]
+        [Authorize]
         public IHttpActionResult DeleteEmployee(int id)
         {
             Employee employee = db.Employees.Find(id);
@@ -278,6 +289,83 @@ namespace PassionProject.Controllers
             db.SaveChanges();
 
             return Ok(employee);
+        }
+
+        /// <summary>
+        /// Receives employee picture data, uploads it to the webserver and updates the employee HasPic property
+        /// </summary>
+        /// <param name="id">the employee id</param>
+        /// <returns>status code 200 if successful.</returns>
+        /// <example>
+        /// POST: api/animalData/UpdateanimalPic/3
+        /// HEADER: enctype=multipart/form-data
+        /// FORM-DATA: image
+        /// </example>
+        [HttpPost]
+        public IHttpActionResult UploadEmployeePic(int id)
+        {
+
+            bool haspic = false;
+            string picextension;
+            if (Request.Content.IsMimeMultipartContent())
+            {
+
+                int numfiles = HttpContext.Current.Request.Files.Count;
+
+                if (numfiles == 1 && HttpContext.Current.Request.Files[0] != null)
+                {
+                    var employeePic = HttpContext.Current.Request.Files[0];
+                    if (employeePic.ContentLength > 0)
+                    {
+                        var valtypes = new[] { "jpeg", "jpg", "png", "gif" };
+                        var extension = Path.GetExtension(employeePic.FileName).Substring(1);
+                        if (valtypes.Contains(extension))
+                        {
+                            try
+                            {
+                                string fn = id + "." + extension;
+                                string path = Path.Combine(HttpContext.Current.Server.MapPath("~/Content/Images/Employees/"), fn);
+
+                                employeePic.SaveAs(path);
+
+                                haspic = true;
+                                picextension = extension;
+
+                                Employee Selectedemployee = db.Employees.Find(id);
+                                Selectedemployee.EmployeeHasPic = haspic;
+                                Selectedemployee.PicExtension = extension;
+                                db.Entry(Selectedemployee).State = EntityState.Modified;
+
+                                db.SaveChanges();
+
+                            }
+                            catch (Exception ex)
+                            {
+                                return BadRequest();
+                            }
+                        }
+                    }
+
+                }
+                else
+                {
+                    Employee Selectedemployee = db.Employees.Find(id);
+                    Selectedemployee.EmployeeHasPic = haspic;
+                    Selectedemployee.PicExtension = null;
+                    db.Entry(Selectedemployee).State = EntityState.Modified;
+
+                    db.SaveChanges();
+                }
+
+                return Ok();
+            }
+            else
+            {
+                //not multipart form data
+                return BadRequest();
+
+            }
+
         }
 
         protected override void Dispose(bool disposing)

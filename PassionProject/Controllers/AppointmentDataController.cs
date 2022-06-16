@@ -58,30 +58,28 @@ namespace PassionProject.Controllers
         /// HEADER: 404 (NOT FOUND)
         /// </returns>
         /// <example>
-        /// GET: api/AppointmentData/FindAppointment/5
+        /// GET: api/AppointmentData/FindAppointmentsByEmployee/5
         /// </example>
         [ResponseType(typeof(Appointment))]
         [HttpGet]
-        public IHttpActionResult FindAppointment(int id)
+        public IHttpActionResult FindAppointmentsByEmployee(int id)
         {
-            Appointment appointment = db.Appointments.Find(id);
-            if (appointment == null)
-            {
-                return NotFound();
-            }
+            List<Appointment> appointments = db.Appointments.Include(x=>x.Service).Where(x => x.EmployeeId == id).ToList();
+            List<AppointmentDto> appointmentDtos = new List<AppointmentDto>();
 
-            AppointmentDto appointmentDto = new AppointmentDto()
+            appointments.ForEach(x => appointmentDtos.Add(new AppointmentDto()
             {
-                AppointmentId = appointment.AppointmentId,
-                CustomerEmail = appointment.CustomerEmail,
-                CustomerName = appointment.CustomerName,
-                EmployeeId = appointment.EmployeeId,
-                EndTime = appointment.EndTime,
-                ServiceId = appointment.ServiceId,
-                StartTime = appointment.StartTime
-            };
+                AppointmentId = x.AppointmentId,
+                ServiceId = x.ServiceId,
+                StartTime = x.StartTime,
+                CustomerEmail = x.CustomerEmail,
+                CustomerName = x.CustomerName,
+                EmployeeId = x.EmployeeId,
+                EndTime = x.EndTime,
+                ServiceName = x.Service.Name
+            }));
 
-            return Ok(appointmentDto);
+            return Ok(appointmentDtos);
         }
 
 
