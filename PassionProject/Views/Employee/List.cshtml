@@ -17,10 +17,10 @@
         <th>
             @Html.DisplayNameFor(model => model.Lname)
         </th>
-        <th>
+        <th class="optional-item">
             @Html.DisplayNameFor(model => model.DOJ)
         </th>
-        <th>
+        <th class="optional-item">
             @Html.DisplayNameFor(model => model.Bio)
         </th>
         <th></th>
@@ -34,17 +34,17 @@
         <td>
             @Html.DisplayFor(modelItem => item.Lname)
         </td>
-        <td>
+        <td class="optional-item">
             @*@Html.DisplayFor(modelItem => item.DOJ.ToString("dd/MM/yyyy"))*@
             @item.DOJ.ToString("dd/MM/yyyy")
         </td>
-        <td>
+        <td class="optional-item">
             @Html.DisplayFor(modelItem => item.Bio)
         </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.EmployeeId }) |
-            @Html.ActionLink("Details", "Details", new { id=item.EmployeeId }) |
-            @Html.ActionLink("Delete", "DeleteConfirm", new { id=item.EmployeeId })
+        <td style="display:flex; gap:5px; flex-wrap:wrap;">
+            @Html.ActionLink("Edit", "Edit", new { id=item.EmployeeId }, new { @class= "btn btn-primary", @style="flex-grow:1" }) 
+            @Html.ActionLink("Details", "Details", new { id=item.EmployeeId }, new { @class = "btn btn-info", @style = "flex-grow:1" }) 
+            @Html.ActionLink("Delete", "DeleteConfirm", new { id=item.EmployeeId }, new { @class = "btn btn-danger", @style = "flex-grow:1" })
         </td>
     </tr>
 }

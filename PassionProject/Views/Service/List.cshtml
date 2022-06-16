@@ -34,10 +34,10 @@
         <td>
             @Html.DisplayFor(modelItem => item.Cost)
         </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.ServiceId }) |
-            @Html.ActionLink("Details", "Details", new { id=item.ServiceId }) |
-            @Html.ActionLink("Delete", "ConfirmDelete", new { id=item.ServiceId })
+        <td style="display: flex; gap: 5px; flex-wrap: wrap; justify-content: center;">
+            @Html.ActionLink("Edit", "Edit", new { id=item.ServiceId }, new { @class = "btn btn-primary", @style = "flex-grow:1; max-width:70px;" }) 
+            @Html.ActionLink("Details", "Details", new { id=item.ServiceId }, new { @class = "btn btn-info", @style = "flex-grow:1; max-width:70px;" }) 
+            @Html.ActionLink("Delete", "ConfirmDelete", new { id=item.ServiceId }, new { @class = "btn btn-danger", @style = "flex-grow:1; max-width:70px;" })
         </td>
     </tr>
 }
