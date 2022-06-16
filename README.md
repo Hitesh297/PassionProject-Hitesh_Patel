@@ -1,6 +1,5 @@
 
-<img src="PassionProject/Content/Images/home3.jpg">
-Clicked by : Toa Heftiba (https://unsplash.com/photos/H8y_8tbkSnw)
+<img src="PassionProject/Content/Images/title.png">
 
 
 
