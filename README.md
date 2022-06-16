@@ -19,6 +19,7 @@ Clicked by : Toa Heftiba (https://unsplash.com/photos/H8y_8tbkSnw)
 ---
 ### Relationships:
 <img src="PassionProject/Content/Images/er-diagram.png">
+
 - Employee is the person providing the service.
 - Service in current context is Hair Cut, Hair colour etc.
 - Appointment can be booked by a customer by selecting the service, employee and the date and time of appointment.
