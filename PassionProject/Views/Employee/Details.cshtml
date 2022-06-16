@@ -4,10 +4,10 @@
     ViewBag.Title = "Details";
 }
 
-<h2>Details</h2>
+<h2>Employee Details</h2>
 
 <div>
-    <h4>Employee</h4>
+    @*<h4>Employee</h4>*@
     <hr />
     <div id="flex-container">
         <div id="employee-details-section">
@@ -85,7 +85,7 @@
                 }
                 foreach (var date in Model.AppointmentGroup.OrderByDescending(x=>x.Key))
                 {
-                    <div class="panel panel-default">
+                    <div class="panel panel-info">
                         <div class="panel-heading">
                             <h4>@date.Key.ToString("D")</h4>
                         </div>

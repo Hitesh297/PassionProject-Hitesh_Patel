@@ -1,6 +1,8 @@
 ﻿body {
     padding-top: 50px;
     padding-bottom: 20px;
+    background-image:url('Images/background.png') !important;
+    background-repeat: repeat;
 }
 
 /* Set padding to keep content from hitting the edges */
@@ -35,6 +37,7 @@ textarea {
         border: 1px solid;
         padding: 25px 40px 25px 40px;
         border-radius: 5px;
+        background-color: white;
     }
 
 #employee-details td {
@@ -65,14 +68,18 @@ textarea {
 
 #form-section {
     flex-basis:200px;
-    flex-grow:1;
-    width:50%;
+    flex-grow:2;
+    /*width:50%;*/
+}
+
+.form-control {
+    border: 1px solid #8d8d8d !important;
 }
 
 #service-section {
     flex-basis: 200px;
     flex-grow: 1;
-    width: 50%;
+    /*width: 50%;*/
 }
 
 #employee-details-section {

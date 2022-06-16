@@ -35,7 +35,8 @@
             @Html.DisplayFor(modelItem => item.Lname)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.DOJ)
+            @*@Html.DisplayFor(modelItem => item.DOJ.ToString("dd/MM/yyyy"))*@
+            @item.DOJ.ToString("dd/MM/yyyy")
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Bio)

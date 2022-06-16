@@ -4,50 +4,62 @@
     ViewBag.Title = "Create";
 }
 
-<h2>Create</h2>
+<h2>Book Appointment</h2>
 
 
-@using (Html.BeginForm()) 
+@using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    
+
     <div class="form-horizontal">
-        <h4>Appointment</h4>
         <hr />
-    <div class="form-group">
-        <label>Customer Name:</label> <input type="text" name="CustomerName" />
-    </div>
-
-    <div class="form-group">
-        <label>Customer Email:</label> <input type="email" name="CustomerEmail" />
-    </div>
-
-    <div class="form-group">
-        <label>Select Sevice:</label>
-        <select name="ServiceId" id="services-list">
-            <option value="x">Please Select</option>
-            @foreach (var service in Model)
-            {
-                <option value="@service.ServiceId">@service.Name</option>
-
-            }
-        </select>
-    </div>
-
-    <div class="form-group">
-        <label>Select Employee:</label>
-        <select name="EmployeeId" id="employee-list">
-            <option value="">Please Select</option>
-        </select>
-    </div>
+        <div class="form-group">
+            <label class="control-label col-md-2">Customer Name:</label>
+            <div class="col-md-10">
+                <input class="form-control" type="text" name="CustomerName" />
+            </div>
+        </div>
 
         <div class="form-group">
-            <label>Select Time:</label> <input type="datetime-local" name="StartTime" placeholder="29/05/2022 13:00" />
+            <label class="control-label col-md-2">Customer Email:</label>
+            <div class="col-md-10">
+                <input class="form-control" type="email" name="CustomerEmail" />
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-2">Select Sevice:</label>
+            <div class="col-md-10">
+                <select class="form-control" name="ServiceId" id="services-list">
+                    <option value="x">Please Select</option>
+                    @foreach (var service in Model)
+                    {
+                        <option value="@service.ServiceId">@service.Name</option>
+
+                    }
+                </select>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-2">Select Employee:</label>
+            <div class="col-md-10">
+                <select class="form-control" name="EmployeeId" id="employee-list">
+                    <option value="">Please Select</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-2">Select Time:</label>
+            <div class="col-md-10">
+                <input class="form-control" type="datetime-local" name="StartTime" />
+            </div>
         </div>
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
+                <input type="submit" value="Book Appointment" class="btn btn-default" />
             </div>
         </div>
     </div>
