@@ -317,7 +317,7 @@ namespace PassionProject.Controllers
                     var employeePic = HttpContext.Current.Request.Files[0];
                     if (employeePic.ContentLength > 0)
                     {
-                        var valtypes = new[] { "jpeg", "jpg", "png", "gif" };
+                        var valtypes = new[] { "jpeg", "jpg", "png", "gif", "JPEG", "JPG", "PNG", "GIF" };
                         var extension = Path.GetExtension(employeePic.FileName).Substring(1);
                         if (valtypes.Contains(extension))
                         {
