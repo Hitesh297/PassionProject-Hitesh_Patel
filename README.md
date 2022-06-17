@@ -52,7 +52,10 @@
 
 ### Additional Features:
 
-The application is made responsive to suppport multiple screen sizes.
+1. The application is made responsive to suppport multiple screen sizes.
+2. Dynamic drop downs, populated through AJAX.
+3. Preview image before upload.
+
 
 ---
 ### Features to be added in future:
