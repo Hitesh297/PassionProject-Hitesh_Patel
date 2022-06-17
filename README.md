@@ -56,10 +56,11 @@ The application is made responsive to suppport multiple screen sizes.
 
 ---
 ### Features to be added in future:
-1. Include payment option before confirming appointment.
-2. Allow selection of multiple services.
-3. Show bio of selected employee while booking appointment.
-4. Hide admin only feature links from guest user.
+1. Implement field validations where required.
+2. Include payment option before confirming appointment.
+3. Allow selection of multiple services.
+4. Show bio of selected employee while booking appointment.
+5. Hide admin only feature links from guest user.
 ---
 
 ### Hosting
