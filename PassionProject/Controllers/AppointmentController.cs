@@ -3,6 +3,7 @@ using Newtonsoft.Json.Converters;
 using PassionProject.Models;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Net.Http;
 using System.Web;
@@ -19,7 +20,8 @@ namespace PassionProject.Controllers
         static AppointmentController()
         {
             client = new HttpClient();
-            client.BaseAddress = new Uri("https://localhost:44364/api/");
+            //client.BaseAddress = new Uri("https://localhost:44364/api/");
+            client.BaseAddress = new Uri(ConfigurationManager.AppSettings["apiServer"]);
         }
         // GET: Appointment
         public ActionResult Index()
@@ -65,7 +67,7 @@ namespace PassionProject.Controllers
                 response = client.PostAsync(url, content).Result;
                 if (response.IsSuccessStatusCode)
                 {
-                    return RedirectToAction("Index","Home");
+                    return RedirectToAction("Index", "Home");
                 }
                 else
                 {

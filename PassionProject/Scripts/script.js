@@ -5,7 +5,7 @@
         employees.empty();
         // clear existing options
         $.ajax({
-            url: 'https://localhost:44364/api/EmployeeData/GetEmployeesByServiceId/'+ service, // do not hard code url's
+            url: 'https://passionproject20220717203816.azurewebsites.net/api/EmployeeData/GetEmployeesByServiceId/'+ service, // do not hard code url's
             type: "GET",
             dataType: "json",
             success: function (data) {

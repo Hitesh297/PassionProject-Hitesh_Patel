@@ -1,6 +1,7 @@
 ﻿using PassionProject.Models;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Net.Http;
 using System.Web;
@@ -22,7 +23,8 @@ namespace PassionProject.Controllers
                 UseCookies = false
             };
             client = new HttpClient(handler);
-            client.BaseAddress = new Uri("https://localhost:44364/api/");
+            //client.BaseAddress = new Uri("https://localhost:44364/api/");
+            client.BaseAddress = new Uri(ConfigurationManager.AppSettings["apiServer"]);
 
         }
 
